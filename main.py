@@ -44,3 +44,7 @@ def analyze(body: RequestBody):
         }
 
     return result
+
+@app.get("/hello")
+def hello():
+    return {"message": "Hello World"}
