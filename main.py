@@ -16,13 +16,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATA_FILE = Path(__file__).parent.parent / "q25" / "q-vercel-latency.json"
+DATA_FILE = Path.cwd() / "q-vercel-latency.json"
 
+print("DATA_FILE =", DATA_FILE)
+print("EXISTS =", DATA_FILE.exists())
 df = pd.read_json(DATA_FILE)
 
 class RequestBody(BaseModel):
     regions: list[str]
     threshold_ms: float
+
+@app.get("/")
+def home():
+    return "FastAPI is running"
 
 @app.post("/")
 def analyze(body: RequestBody):
